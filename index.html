@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hiba Zoubir — AI & Data Science Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1420;
+    --bg-alt:#161B2C;
+    --card:#171D30;
+    --text:#EDEFF7;
+    --muted:#9CA3B8;
+    --gold:#F2B84B;
+    --gold-dim:#7A5A22;
+    --teal:#5EEAD4;
+    --border:rgba(255,255,255,0.08);
+    --maxw:920px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  a{color:inherit;}
+
+  /* background node motif */
+  .bg-nodes{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+  }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(15,20,32,0.75);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .logo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px; color:var(--gold); letter-spacing:0.5px;
+  }
+  .logo span{color:var(--text);}
+  nav ul{list-style:none; display:flex; gap:28px;}
+  nav a{
+    font-size:13.5px; color:var(--muted); text-decoration:none;
+    font-weight:500; transition:color .2s;
+  }
+  nav a:hover{color:var(--gold);}
+  .nav-cv{
+    border:1px solid var(--gold-dim); color:var(--gold) !important;
+    padding:7px 14px; border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:12.5px;
+  }
+  .nav-cv:hover{background:rgba(242,184,75,0.08);}
+
+  header.hero{
+    position:relative; z-index:1;
+    padding:120px 0 100px;
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    color:var(--teal); letter-spacing:1.5px; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:''; width:26px; height:1px; background:var(--teal);
+  }
+  h1.name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:clamp(38px, 6vw, 62px);
+    line-height:1.05; letter-spacing:-1px; margin-bottom:18px;
+  }
+  h1.name .accent{color:var(--gold);}
+  .tagline{
+    font-size:17px; color:var(--muted); max-width:560px; margin-bottom:34px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter', sans-serif; font-weight:600; font-size:14px;
+    padding:13px 26px; border-radius:8px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; transition:all .2s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--gold); color:#171205;}
+  .btn-primary:hover{background:#ffcd6b; transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--border); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  section{position:relative; z-index:1; padding:70px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:36px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace; color:var(--gold-dim); font-size:14px;
+  }
+  h2{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:26px;
+  }
+  .rule{height:1px; background:var(--border); flex:1;}
+
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:50px;}
+  @media(max-width:720px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{color:var(--muted); font-size:15px; margin-bottom:14px;}
+  .facts{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:22px 24px;
+  }
+  .facts dt{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--teal);
+    text-transform:uppercase; letter-spacing:0.8px; margin-top:14px;
+  }
+  .facts dt:first-child{margin-top:0;}
+  .facts dd{font-size:14.5px; margin-top:3px;}
+
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px 40px;}
+  @media(max-width:640px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-cat h3{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--gold);
+    text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;
+  }
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{
+    font-size:13px; padding:6px 12px; border-radius:20px;
+    border:1px solid var(--border); color:var(--muted);
+  }
+
+  .projects{display:flex; flex-direction:column; gap:18px;}
+  .project-card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:26px 28px; transition:border-color .2s;
+  }
+  .project-card:hover{border-color:var(--gold-dim);}
+  .project-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .project-title{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:18.5px;
+  }
+  .project-meta{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted);
+    white-space:nowrap;
+  }
+  .project-desc{color:var(--muted); font-size:14.5px; margin-bottom:14px;}
+  .project-foot{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .tech-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tech-tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--teal);
+    background:rgba(94,234,212,0.08); padding:3px 9px; border-radius:5px;
+  }
+  .project-link{
+    font-size:13px; font-weight:600; color:var(--gold); text-decoration:none;
+    display:flex; align-items:center; gap:5px;
+  }
+  .project-link:hover{text-decoration:underline;}
+
+  .timeline{display:flex; flex-direction:column; gap:26px; border-left:1px solid var(--border); padding-left:26px;}
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:''; position:absolute; left:-31px; top:5px;
+    width:9px; height:9px; border-radius:50%; background:var(--gold);
+    box-shadow:0 0 0 4px rgba(242,184,75,0.15);
+  }
+  .tl-role{font-weight:600; font-size:15.5px;}
+  .tl-org{color:var(--muted); font-size:13.5px; margin-bottom:4px;}
+  .tl-date{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--teal);
+  }
+
+  footer{
+    border-top:1px solid var(--border); padding:50px 0 40px; position:relative; z-index:1;
+  }
+  .footer-grid{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  .footer-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-links a{
+    font-size:13.5px; color:var(--muted); text-decoration:none; font-weight:500;
+  }
+  .footer-links a:hover{color:var(--gold);}
+  .footer-note{font-size:12.5px; color:var(--muted); font-family:'JetBrains Mono', monospace;}
+</style>
+</head>
+<body>
+
+<svg class="bg-nodes" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+  <g stroke="#2A3350" stroke-width="1" fill="none">
+    <line x1="120" y1="90" x2="300" y2="180"/>
+    <line x1="300" y1="180" x2="260" y2="360"/>
+    <line x1="300" y1="180" x2="480" y2="140"/>
+    <line x1="1000" y1="120" x2="860" y2="240"/>
+    <line x1="860" y1="240" x2="960" y2="400"/>
+    <line x1="150" y1="700" x2="330" y2="640"/>
+    <line x1="330" y1="640" x2="300" y2="820"/>
+    <line x1="1050" y1="700" x2="900" y2="760"/>
+  </g>
+  <g fill="#F2B84B" opacity="0.55">
+    <circle cx="120" cy="90" r="3"/>
+    <circle cx="300" cy="180" r="3.5"/>
+    <circle cx="260" cy="360" r="2.5"/>
+    <circle cx="480" cy="140" r="2.5"/>
+  </g>
+  <g fill="#5EEAD4" opacity="0.5">
+    <circle cx="1000" cy="120" r="3"/>
+    <circle cx="860" cy="240" r="3.5"/>
+    <circle cx="960" cy="400" r="2.5"/>
+    <circle cx="150" cy="700" r="3"/>
+    <circle cx="330" cy="640" r="3.5"/>
+    <circle cx="300" cy="820" r="2.5"/>
+    <circle cx="1050" cy="700" r="3"/>
+    <circle cx="900" cy="760" r="2.5"/>
+  </g>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">hiba<span>.zoubir</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="cv.pdf" class="nav-cv" download>Download CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Final-Year AI &amp; Data Science Engineering Student</div>
+    <h1 class="name">Hiba Zoubir<span class="accent">.</span></h1>
+    <p class="tagline">
+      Building intelligent systems that hold up in production — from pose-generation pipelines for sign
+      language, to rule-mining models that predict equipment failure before it happens. Currently completing
+      an Ingénieur d'État + Master 2 in AI &amp; Data Science at ESI Sidi Bel Abbès.
+    </p>
+    <div class="hero-actions">
+      <a href="cv.pdf" class="btn btn-primary" download>↓ Download CV</a>
+      <a href="#projects" class="btn btn-ghost">View Projects</a>
+      <a href="mailto:h.zoubir@esi-sba.dz" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span><h2>About</h2><div class="rule"></div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm a final-year Computer Science Engineering student at ESI Sidi Bel Abbès, specializing in AI &amp;
+          Data Science. My computer-engineering foundation — algorithms, operating systems, databases,
+          networks, software engineering — sits underneath everything I build in machine learning and
+          deep learning.
+        </p>
+        <p>
+          I like problems that connect technical depth to real people: a pipeline that turns text into sign
+          language video, a model that tells a technician a machine is about to fail, a tool that turns a
+          lecture recording into usable notes. I've worked across the stack to get there — Python and PyTorch
+          on the model side, Node.js/Express and Flutter to actually ship something people can use.
+        </p>
+        <p>
+          Open to internships and collaborative research where I can go deep on one hard problem rather than
+          skim the surface of many.
+        </p>
+      </div>
+      <dl class="facts">
+        <dt>Location</dt><dd>Chlef, Algeria</dd>
+        <dt>Education</dt><dd>ESI Sidi Bel Abbès — Ingénieur d'État + M2, AI &amp; Data Science</dd>
+        <dt>Email</dt><dd>h.zoubir@esi-sba.dz</dd>
+        <dt>Phone</dt><dd>+213 656 387 518</dd>
+        <dt>GitHub</dt><dd>github.com/hibyy</dd>
+        <dt>LinkedIn</dt><dd>hiba-zoubir-2931b5276</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span><h2>Skills</h2><div class="rule"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>AI &amp; Data Science</h3>
+        <div class="pill-row">
+          <span class="pill">Python</span><span class="pill">PyTorch</span><span class="pill">TensorFlow</span>
+          <span class="pill">scikit-learn</span><span class="pill">OpenCV</span><span class="pill">NLP</span>
+          <span class="pill">Label Studio</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Backend &amp; Databases</h3>
+        <div class="pill-row">
+          <span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">Prisma</span>
+          <span class="pill">PostgreSQL</span><span class="pill">MySQL</span><span class="pill">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Mobile &amp; Frontend</h3>
+        <div class="pill-row">
+          <span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Vue.js</span>
+          <span class="pill">HTML/CSS</span><span class="pill">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Tools &amp; Design</h3>
+        <div class="pill-row">
+          <span class="pill">Git/GitHub</span><span class="pill">Docker</span><span class="pill">Linux</span>
+          <span class="pill">Figma</span><span class="pill">Canva</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03</span><h2>Projects</h2><div class="rule"></div>
+    </div>
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Sign Language Production &amp; Recognition System</div>
+          <div class="project-meta">FINAL-YEAR PROJECT</div>
+        </div>
+        <div class="project-desc">
+          Bidirectional system for text/voice ↔ sign language. Led the pose-to-video phase: mapped a custom
+          151-joint skeleton to MediaPipe Holistic, tested Pix2Pix GAN and ControlNet+AnimateDiff before
+          landing on ControlNet + Stable Diffusion 1.5, and optimized it to run on a single T4 GPU.
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags">
+            <span class="tech-tag">PyTorch</span><span class="tech-tag">Stable Diffusion</span>
+            <span class="tech-tag">ControlNet</span><span class="tech-tag">MediaPipe</span>
+          </div>
+          <a class="project-link" href="https://github.com/sarrazer24/sign-language-production" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Predictive Maintenance — Association Rule Mining</div>
+          <div class="project-meta">APRIORI / FP-GROWTH</div>
+        </div>
+        <div class="project-desc">
+          Mined sensor telemetry and error logs to find failure-precursor patterns, deployed as a real-time
+          Streamlit risk tool. Found 287 strong rules; FP-Growth ran 3.5x faster than Apriori on ~876K records
+          across 100 machines (F1 76.8).
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span><span class="tech-tag">mlxtend</span><span class="tech-tag">Streamlit</span>
+          </div>
+          <a class="project-link" href="https://github.com/hibyy/SmartMaintenance-PredictiveMaintenanceSystem" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Predictive Maintenance — MLOps Pipeline</div>
+          <div class="project-meta">PRODUCTION ML</div>
+        </div>
+        <div class="project-desc">
+          A production-pipeline take on the same predictive maintenance problem — training, evaluation, and
+          deployment structured as an MLOps workflow rather than a rule-mining app.
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">MLOps</span></div>
+          <a class="project-link" href="https://github.com/hibyy/PredictiveMaintenanceSystem_with_mlops" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Smart Notes Generator: Audio to Impact</div>
+          <div class="project-meta">NLP</div>
+        </div>
+        <div class="project-desc">
+          Turns lecture audio into structured notes: Whisper ASR feeding a BART model fine-tuned on SAMSum,
+          in a Streamlit app. Owned the summarization &amp; evaluation side — fine-tuning and testing the
+          BART-SAMSum model.
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags">
+            <span class="tech-tag">Whisper</span><span class="tech-tag">BART</span><span class="tech-tag">Transformers</span>
+          </div>
+          <a class="project-link" href="https://github.com/hibyy/Smart-Notes-Generator" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">ESI PFE Management Platform</div>
+          <div class="project-meta">ACADEMIC TEAM PROJECT</div>
+        </div>
+        <div class="project-desc">
+          Full-stack platform for managing final-year (PFE) projects, with Student/Teacher/Admin flows.
+          Backend developer: secure REST API with authentication and validation, query optimization.
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags">
+            <span class="tech-tag">Node.js</span><span class="tech-tag">Express</span><span class="tech-tag">PostgreSQL</span>
+          </div>
+          <a class="project-link" href="https://github.com/hibyy/University-project-management-web-application" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">NEEDLE — Tailor &amp; Client Marketplace App</div>
+          <div class="project-meta">2CP TEAM PROJECT · 6 MEMBERS</div>
+        </div>
+        <div class="project-desc">
+          Mobile marketplace connecting clients and tailors, including a "create-your-own-style" design
+          feature. Frontend developer on Flutter — built sign-up/login as a first contribution.
+        </div>
+        <div class="project-foot">
+          <div class="tech-tags">
+            <span class="tech-tag">Flutter</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span>
+          </div>
+          <a class="project-link" href="https://github.com/Djamel-Edn/Tailor-Client-Final" target="_blank">View Repo →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04</span><h2>Experience &amp; Education</h2><div class="rule"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2022 — PRESENT</div>
+        <div class="tl-role">Engineering Cycle, AI &amp; Data Science</div>
+        <div class="tl-org">ESI Sidi Bel Abbès — pursuing Ingénieur d'État + Master 2</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">ONGOING</div>
+        <div class="tl-role">Equipment Display Annotation Pipeline</div>
+        <div class="tl-org">Team project — YOLO + OCR annotation in Label Studio for equipment display detection</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2CP</div>
+        <div class="tl-role">Classes Préparatoires Intégrées</div>
+        <div class="tl-org">ESI Sidi Bel Abbès — algorithms, data structures, OS, architecture, mathematics, networks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-note">Built &amp; maintained by Hiba Zoubir</div>
+    <div class="footer-links">
+      <a href="mailto:h.zoubir@esi-sba.dz">Email</a>
+      <a href="https://github.com/hibyy" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/hiba-zoubir-2931b5276/" target="_blank">LinkedIn</a>
+      <a href="cv.pdf" download>Download CV</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
